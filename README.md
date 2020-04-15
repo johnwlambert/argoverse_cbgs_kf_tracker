@@ -39,11 +39,11 @@ python run_ab3dmot.py --dets_dataroot $DETECTIONS_DATAROOT --pose_dir $POSE_DIR 
 ```
 
 <p align="left">
-  <img src="videos/de6c96c4-f2b2-3f0f-9971-ed35f4118c1e_ring_front_center_30fps.gif" height="300">
-  <img src="videos/21e37598-52d4-345c-8ef9-03ae19615d3d_ring_front_center_30fps.gif" height="300">
+  <img src="videos/de6c96c4-f2b2-3f0f-9971-ed35f4118c1e_ring_front_center_30fps.gif" height="280">
+  <img src="videos/21e37598-52d4-345c-8ef9-03ae19615d3d_ring_front_center_30fps.gif" height="280">
 </p>
 <p align="center">
-  <img src="videos/1e5d7745-c7b3-31a0-ae57-c480fcaa220e_ring_front_center_30fps.gif" height="300">
+  <img src="videos/1e5d7745-c7b3-31a0-ae57-c480fcaa220e_ring_front_center_30fps.gif" height="280">
 </p>
 
 
