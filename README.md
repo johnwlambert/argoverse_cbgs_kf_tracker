@@ -38,6 +38,13 @@ SPLIT="val" # should be either 'val' or 'test'
 python run_ab3dmot.py --dets_dataroot $DETECTIONS_DATAROOT --pose_dir $POSE_DIR --split $SPLIT
 ```
 
+<p align="center">
+  <img src="videos/de6c96c4-f2b2-3f0f-9971-ed35f4118c1e_ring_front_center_30fps.gif" height="300">
+  <img src="videos/21e37598-52d4-345c-8ef9-03ae19615d3d_ring_front_center_30fps.gif" height="300">
+  <img src="videos/1e5d7745-c7b3-31a0-ae57-c480fcaa220e_ring_front_center_30fps.gif" height="300">
+</p>
+
+
 ## Brief Explanation of Repo Contents
 
 - `ab3dmot.py`: kalman filter state management (modified from [original](https://github.com/xinshuoweng/AB3DMOT))
@@ -55,8 +62,7 @@ python run_ab3dmot.py --dets_dataroot $DETECTIONS_DATAROOT --pose_dir $POSE_DIR 
     - `dump_to_argoverse.py`: Lift SE(2) detections (e.g. PointPillars) to SE(3)
 
 ## Citing this work
-Open-source Pytorch Implementation
-
+Open-source Implementation
 ```
 @misc{
     author = {John Lambert},
