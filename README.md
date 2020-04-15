@@ -14,11 +14,12 @@ Instead of greedily matching sporadic detections, we solve a number of independe
 ## Results on Argoverse Leaderboard
 As of Wednesday April 15, 2020 this implementation took 1st place on the Argoverse 3d tracking test set ([leaderboard](https://evalai.cloudcv.org/web/challenges/challenge-page/453/leaderboard/1278)). Several per-metric results are here:
 
-   |  Car    |  Pedestrian  | Car     | Pedestrian  |     Car MT           | Pedestrian MT    | Car    | Ped.   |
-   |  MOTA   |  MOTA        | MOTPD   |   MOTPD     |   (Mostly Tracked)   | (Mostly Tracked) | FN     | FN     |
+   |  Car <br> MOTA  |  Pedestrian  | Car     | Pedestrian  |     Car MT           | Pedestrian MT    | Car    | Ped.   
    | :-----: | :----------: | :-----: |  :--------: | :------------------: | :--------------: | :----: | :--:   |
    | 65.90   | 48.31        |  0.34   | 0.37        | 0.51                 | 0.28             | 23,594 | 25,780 |
 
+
+   |     |  MOTA        | MOTPD   |   MOTPD     |   (Mostly Tracked)   | (Mostly Tracked) | FN     | FN     |
 
 
 ## Choice of Coordinate Frame
