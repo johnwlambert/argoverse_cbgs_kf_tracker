@@ -209,6 +209,7 @@ if __name__ == '__main__':
             '/Users/johnlamb/Downloads/ARGOVERSE-COMPETITION/val/argoverse-tracking/val'
     -   dets_dataroot: should be path to 3d detections e.g.
             '/Users/johnlamb/Downloads/argoverse_detections_2020'
+    -   tracks_dump_dir: where to dump the generated tracks
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--split", type=str, required=True, help="val or test")

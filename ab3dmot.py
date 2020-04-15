@@ -12,49 +12,6 @@ from transform_utils import convert_3dbox_to_8corner
 from iou_utils import compute_iou_2d_bboxes
 
 
-def plot_a3dmot_bbox(ax, pts, color):
-  ax.plot(pts[0:2, 0], pts[0:2, 1], c=color)
-  ax.plot(pts[1:3, 0], pts[1:3, 1], c=color)
-  ax.plot(pts[2:4, 0], pts[2:4, 1], c=color)
-  ax.plot(pts[np.array([3, 0]), 0], pts[np.array([3, 0]), 1], c=color)
-
-
-def vis_ious(dets, trks, iou_matrix):
-  """
-  """
-  import matplotlib.pyplot as plt
-
-  # red is detection
-  for i, det_bbox in enumerate(dets):   
-
-      fig = plt.figure(figsize=(10, 5))
-      ax = fig.add_subplot(111)
-      det_bbox = np.array([(det_bbox[i,0], det_bbox[i,1]) for i in range(3,-1,-1)])
-      color = 'r'
-
-      # green is track
-      for j, trk_bbox in enumerate(trks):
-          color = 'g'
-          trk_bbox = np.array([(trk_bbox[i,0], trk_bbox[i,1]) for i in range(3,-1,-1)])
-          plot_a3dmot_bbox(ax, trk_bbox, color)
-
-          iou_2d = iou_matrix[i,j]
-          trk_center = trk_bbox.mean(axis=0)
-          ax.text(trk_center[0]-2, trk_center[1], f'{iou_2d:.2f}')
-
-      color='r'
-      plot_a3dmot_bbox(ax, det_bbox, color)
-
-      ax.set_xlim([-65,65])
-      ax.set_ylim([-35,35])
-      #ax.axis('equal')
-      plt.title(f'Num Dets: {len(dets)}, Num Tracks: {len(trks)}')
-      plt.show()
-      #plt.savefig(f'{log_id}_{fr_idx}.jpg')
-      #plt.show()
-      plt.close('all')
-
-
 class KalmanBoxTracker(object):
   """
   This class represents the internel state of individual tracked objects observed as bbox.
@@ -188,41 +145,6 @@ class KalmanBoxTracker(object):
     return self.kf.x[:7].reshape((7, ))
 
 
-# def plot_bbox(bbox, color):
-#   """
-#   """
-#   plt.plot( [ bbox[0,0], bbox[1,0] ], [ bbox[0,2], bbox[1,2] ], color=color)
-#   plt.plot( [ bbox[1,0], bbox[2,0] ], [ bbox[1,2], bbox[2,2] ], color=color)
-#   plt.plot( [ bbox[2,0], bbox[3,0] ], [ bbox[2,2], bbox[3,2] ], color=color)
-#   plt.plot( [ bbox[3,0], bbox[0,0] ], [ bbox[3,2], bbox[0,2] ], color=color)
-
-#   #plt.scatter(bbox[:,0], bbox[:,1], 10, marker='.', color=color)
-
-
-import datetime
-
-
-def generate_datetime_string() -> str:
-    """Generate a formatted datetime string.
-    Returns:
-        String with of the format YYYY_MM_DD_HH_MM_SS with 24-hour time used
-    """
-    return f"{datetime.datetime.now():%Y_%m_%d_%H_%M_%S}"
-
-
-
-def save_iou_matrix(iou_matrix):
-  """
-  """
-  save_fpath = 'iou/' + generate_datetime_string() + '.txt'
-  with open(save_fpath, 'w') as f:
-    num_rows, num_cols = iou_matrix.shape
-    for r in range(num_rows):
-      for c in range(num_cols):
-        f.write(f'{iou_matrix[r,c]:.2f}\t')
-      f.write('\n')
-
-
 
 
 def associate_detections_to_trackers(detections,trackers,iou_threshold=0.1):
@@ -240,30 +162,13 @@ def associate_detections_to_trackers(detections,trackers,iou_threshold=0.1):
     return np.empty((0,2),dtype=int), np.arange(len(detections)), np.empty((0,8,3),dtype=int)    
   iou_matrix = np.zeros((len(detections),len(trackers)),dtype=np.float32)
 
-  # # # --- debug ---- 
-  # pdb.set_trace()
-  # for d,det in enumerate(detections):
-  #   for t,trk in enumerate(trackers):
-  #     plot_bbox(det, 'r')
-  #     plot_bbox(trk, 'g')
-
-  # plt.show()
-
-  # # # --- debug ---- 
-
   for d,det in enumerate(detections):
     for t,trk in enumerate(trackers):
       #print(f'On d={d}, t={t}')
       #iou_matrix[d,t] = iou3d(det,trk)[1] # try 2d iou instead             # det: 8 x 3, trk: 8 x 3
       iou_matrix[d,t] = compute_iou_2d_bboxes(det, trk)
 
-  #vis_ious(detections, trackers, iou_matrix)
-
-  # pdb.set_trace()
-  matched_indices = linear_assignment(-iou_matrix)      # hougarian algorithm
-
-  # save_iou_matrix(iou_matrix)
-  # pdb.set_trace()
+  matched_indices = linear_assignment(-iou_matrix)      # hungarian algorithm
 
   unmatched_detections = []
   for d,det in enumerate(detections):
@@ -274,9 +179,8 @@ def associate_detections_to_trackers(detections,trackers,iou_threshold=0.1):
     if(t not in matched_indices[:,1]):
       unmatched_trackers.append(t)
 
-  
   #print(iou_matrix)
-  # pdb.set_trace()
+
   #filter out matched with low IOU
   matches = []
   for m in matched_indices:
