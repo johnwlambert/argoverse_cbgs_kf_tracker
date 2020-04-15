@@ -190,8 +190,6 @@ def run_ab3dmot(
             save_json_dict(json_fpath, tracked_labels)
 
 
-
-
 if __name__ == '__main__':
     """
     Run the tracker. The tracking is performed in the city frame, but the
@@ -201,6 +199,16 @@ if __name__ == '__main__':
     Note:
         "max_age" denotes maximum allowed lifespan of a track (in timesteps of 100 ms) 
         since it was last updated with an associated measurement.
+
+    Argparse args:
+    -   split: dataset split
+    -   max_age: max allowed track age since last measurement update
+    -   min_hits: minimum number of required hits for track birth
+    -   pose_dir: should be path to raw log files e.g.
+            '/Users/johnlamb/Downloads/ARGOVERSE-COMPETITION/test' or
+            '/Users/johnlamb/Downloads/ARGOVERSE-COMPETITION/val/argoverse-tracking/val'
+    -   dets_dataroot: should be path to 3d detections e.g.
+            '/Users/johnlamb/Downloads/argoverse_detections_2020'
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--split", type=str, required=True, help="val or test")
@@ -210,13 +218,10 @@ if __name__ == '__main__':
         help="minimum number of required hits for track birth")
 
     parser.add_argument("--dets_dataroot", type=str, 
-        default='/Users/johnlamb/Downloads/argoverse_detections_2020', 
-        help="path to 3d detections")
+        required=True, help="path to 3d detections")
 
     parser.add_argument("--pose_dir", type=str, 
-        default='/Users/johnlamb/Downloads/ARGOVERSE-COMPETITION/test',
-        # '/Users/johnlamb/Downloads/ARGOVERSE-COMPETITION/val/argoverse-tracking/val'
-        help="path to raw log data (including pose data) for validation or test set")
+        required=True, help="path to raw log data (including pose data) for validation or test set")
 
     parser.add_argument("--tracks_dump_dir", type=str,
         default='temp_files',

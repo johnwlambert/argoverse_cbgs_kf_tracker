@@ -2,9 +2,9 @@
 
 
 ## Precomputed 3D Detections
-The precomputed 3D detections were computed on the Argoverse dataset using [Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection](https://arxiv.org/abs/1908.09492), with detection range increased to 100 meters in each direction and pruned to ROI to match Argoverse annotation policy.
+The precomputed 3D detections were computed on the Argoverse dataset using the method described in [Class-balanced Grouping and Sampling for Point Cloud 3D Object Detection](https://arxiv.org/abs/1908.09492), with detection range increased to 100 meters in each direction and pruned to ROI to match Argoverse annotation policy.
 
-The detections can be freely downloaded at our [3d tracking competition page](https://evalai.cloudcv.org/web/challenges/challenge-page/453/overview) [[.zip link]](https://s3.amazonaws.com/argoai-argoverse/detections_v1.1b.zip)
+The detections can be freely downloaded at our [3d tracking competition page](https://evalai.cloudcv.org/web/challenges/challenge-page/453/overview) [[.zip]](https://s3.amazonaws.com/argoai-argoverse/detections_v1.1b.zip).
 
 ## Kalman Filter Tracking
 This code extends [AB3DMOT](https://github.com/xinshuoweng/AB3DMOT), subject to its [license](https://github.com/xinshuoweng/AB3DMOT/blob/master/LICENSE). However, instead of tracking in the camera coordinate frame (as AB3DMOT does), we perform tracking in the Argoverse city coordinate frame [(see Argoverse paper and appendix)](https://arxiv.org/abs/1911.02620).
@@ -40,15 +40,15 @@ python run_ab3dmot.py --dets_dataroot $DETECTIONS_DATAROOT --pose_dir $POSE_DIR 
 
 ## Brief Explanation of Repo Contents
 
-- `ab3dmot.py`: A Baseline for Multi-Object Tracking (modified from [original](https://github.com/xinshuoweng/AB3DMOT)
+- `ab3dmot.py`: kalman filter state management (modified from [original](https://github.com/xinshuoweng/AB3DMOT))
 - `detections_README.md`: explanation of how detections are provided
 - `iou_utils.py`: simple intersection-over-union utilities
-- `run_ab3dmot.py`: execute the tracker of detections provided in egovehicle frame
+- `run_ab3dmot.py`: execute the tracker on 3d detections which must be provided in egovehicle frame
 - `transform_utils.py`: upgrade SE(2) poses to SE(3) and vice versa
 
 - `tests`
     - `test_iou_utils.py`: a few unit tests
-- `visualization` (can be ignored): patches on argoverse-api for better visualization
+- `visualization` (can be ignored): patches on argoverse-api for better visualization/easier eval
     - `cuboids_to_bboxes.py`: improved script for visualizing tracks (original is in argoverse-api)
     - `object_label_record.py`: updated classes to support visualizing tracks (original is in argoverse-api)
     - `eval_tracking.py`: slightly more user-friendly interface for evaluation script
