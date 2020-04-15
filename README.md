@@ -21,7 +21,7 @@ As of Wednesday April 15, 2020 this implementation took 1st place on the Argover
 
 ## Choice of Coordinate Frame
 
-Tracking in the "city frame" is advantageous over tracking in the egovehicle frame or camera coordinate frame since parked cars are constant in the city frame. You can find our technical report [here](https://drive.google.com/file/d/1TlrZDQTz3c9t7lXmUWcatF0sGjv14Era/view?usp=sharing) (runner up at Neurips 19 Argoverse 3D Tracking Competition that used less high-quality detections from PointPillars, achieveing 48.33 Car MOTA).
+Tracking in the "city frame" is advantageous over tracking in the egovehicle frame or camera coordinate frame since parked cars are constant in the city frame. You can find our technical report [here](https://drive.google.com/file/d/1TlrZDQTz3c9t7lXmUWcatF0sGjv14Era/view?usp=sharing) (runner up at Neurips 19 Argoverse 3D Tracking Competition that used less high-quality detections from PointPillars, achieving 48.33 Car MOTA).
 
 ## Running the Code
 
