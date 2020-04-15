@@ -54,6 +54,18 @@ python run_ab3dmot.py --dets_dataroot $DETECTIONS_DATAROOT --pose_dir $POSE_DIR 
     - `eval_tracking.py`: slightly more user-friendly interface for evaluation script
     - `dump_to_argoverse.py`: Lift SE(2) detections (e.g. PointPillars) to SE(3)
 
+## Citing this work
+Open-source Pytorch Implementation
+
+```
+@misc{
+    author = {John Lambert},
+    title = {Open Argoverse CBGS-KF Tracker},
+    howpublished={\url{https://github.com/johnwlambert/argoverse_cbgs_kf_tracker}},
+    year = {2020},
+}
+```
+
 
 ## License
 
