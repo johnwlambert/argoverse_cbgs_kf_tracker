@@ -11,9 +11,17 @@ This code extends [AB3DMOT](https://github.com/xinshuoweng/AB3DMOT), subject to 
 
 Instead of greedily matching sporadic detections, we solve a number of independent estimation problems (filtering) in a factor graph. Specifically, we use the IoU metric to perform data association (decoupling the estimation problems), and then consider each 3D detection as a measurement of an unknown state for a particular vehicle.
 
+## Results on Argoverse Leaderboard
+As of Wednesday April 15, 2020 this implementation took 1st place on the Argoverse 3d tracking test set ([leaderboard](https://evalai.cloudcv.org/web/challenges/challenge-page/453/leaderboard/1278)). Several per-metric results are here:
+
+   |  Car MOTA  |  Pedestrian MOTA    |  Car Mostly Tracked (MT) | Pedestrian Mostly Tracked (MT) |
+   | :--------: | :-----------------: | :----------------------: | :----------------------------: |
+   | 65.90      | 48.31               | 0.51                     | 0.28                           |
+
+
 ## Choice of Coordinate Frame
 
-Tracking in the city frame is advantageous over tracking in the egovehicle frame or camera coordinate frame since parked cars are constant in the city frame. You can find our technical report [here](https://drive.google.com/file/d/1TlrZDQTz3c9t7lXmUWcatF0sGjv14Era/view?usp=sharing) (runner up at Neurips 19 Argoverse 3D Tracking Competition with 48.33 MOTA).
+Tracking in the "city frame" is advantageous over tracking in the egovehicle frame or camera coordinate frame since parked cars are constant in the city frame. You can find our technical report [here](https://drive.google.com/file/d/1TlrZDQTz3c9t7lXmUWcatF0sGjv14Era/view?usp=sharing) (runner up at Neurips 19 Argoverse 3D Tracking Competition with 48.33 MOTA).
 
 ## Running the Code
 
