@@ -38,6 +38,26 @@ SPLIT="val" # should be either 'val' or 'test'
 python run_ab3dmot.py --dets_dataroot $DETECTIONS_DATAROOT --pose_dir $POSE_DIR --split $SPLIT
 ```
 
+## Visualization tool by ROS
+Please modify code in `argo_visual.py` in line 38-40: <br/>
+- `folder_path` point to tracking result path
+- `lidar_path` point to argoverse dataset path
+
+```bash
+  # Terminal 1
+  roscore
+
+  # Terminal 2
+  pip2 install plyfile --user # if python package 'plyfile' is not existed
+  python2 argo_visual.py      # "Ctrl + C" can stop the process
+                              # 如果有殘影或是bbox閃爍的情形，請調整第28行的程式 MARKER_LIFETIME 決定框框停留時間
+  # Terminal 3
+  rviz -d argo_setting.rviz
+```
+<p align="center">
+  <img src="videos/visualization_tool_ros.png" height="480">
+</p>
+
 <p align="left">
   <img src="videos/de6c96c4-f2b2-3f0f-9971-ed35f4118c1e_ring_front_center_30fps.gif" height="280">
   <img src="videos/21e37598-52d4-345c-8ef9-03ae19615d3d_ring_front_center_30fps.gif" height="280">
