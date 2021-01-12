@@ -63,7 +63,7 @@ def yaw_from_bbox_corners(det_corners: np.ndarray) -> float:
 
 def run_ab3dmot(
     classname: str,
-    pose_dir: str,
+    raw_data_dir: str,
     dets_dump_dir: str,
     tracks_dump_dir: str,
     max_age: int = 3,
@@ -77,17 +77,17 @@ def run_ab3dmot(
     Filtering occurs in the city frame, not the egovehicle frame.
 
         Args:
-        -   classname: string, either 'VEHICLE' or 'PEDESTRIAN'
-        -   pose_dir: string
-        -   dets_dump_dir: string
-        -   tracks_dump_dir: string
-        -   max_age: integer
-        -   min_hits: integer
+            classname: string, either 'VEHICLE' or 'PEDESTRIAN'
+            raw_data_dir: string
+            dets_dump_dir: string
+            tracks_dump_dir: string
+            max_age: integer
+            min_hits: integer
 
         Returns:
-        -   None
+            None
     """
-    dl = SimpleArgoverseTrackingDataLoader(data_dir=pose_dir, labels_dir=dets_dump_dir)
+    dl = SimpleArgoverseTrackingDataLoader(data_dir=raw_data_dir, labels_dir=dets_dump_dir)
 
     for log_id in tqdm(dl.sdb.get_valid_logs()):
         print(log_id)
@@ -204,7 +204,7 @@ if __name__ == '__main__':
     -   split: dataset split
     -   max_age: max allowed track age since last measurement update
     -   min_hits: minimum number of required hits for track birth
-    -   pose_dir: should be path to raw log files e.g.
+    -   raw_data_dir: should be path to raw log files e.g.
             '/Users/johnlamb/Downloads/ARGOVERSE-COMPETITION/test' or
             '/Users/johnlamb/Downloads/ARGOVERSE-COMPETITION/val/argoverse-tracking/val'
     -   dets_dataroot: should be path to 3d detections e.g.
@@ -221,7 +221,7 @@ if __name__ == '__main__':
     parser.add_argument("--dets_dataroot", type=str, 
         required=True, help="path to 3d detections")
 
-    parser.add_argument("--pose_dir", type=str, 
+    parser.add_argument("--raw_data_dir", type=str, 
         required=True, help="path to raw log data (including pose data) for validation or test set")
 
     parser.add_argument("--tracks_dump_dir", type=str,
@@ -249,7 +249,7 @@ if __name__ == '__main__':
     for classname in ['VEHICLE', 'PEDESTRIAN']:
         run_ab3dmot(
             classname,
-            args.pose_dir,
+            args.raw_data_dir,
             args.dets_dataroot,
             args.tracks_dump_dir,
             max_age=args.max_age,
